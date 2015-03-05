@@ -27,7 +27,12 @@ echo "Starting a Celerybeat worker..."
 docker run -d --name worker-beat --link redis-server:redis.local richardbronosky/celery-redis-demo celery_test_beat
 
 echo; echo
-echo "Running a single test..."
-read -p "Enter 2 integers separated by a space. Default is 32 16: " v1 v2
-docker run --rm -t -i --link redis-server:redis.local richardbronosky/celery-redis-demo celery_test $v1 $v2
+cat <<EOF
+At this point you may want to try one the following...
+tools/test.sh          # Run a single
+tools/workerlogs.sh    # Inspect the logs of all workers
+tools/loadtest.sh      # Run a loadtest
+(It is actually recommended that you start watching the logs after you start the loadtest like so...)
+tools/loadtest.sh; tools/workerlogs.sh
+EOF
 
